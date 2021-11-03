@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Cristopher Munoz">
+        <title>Componentes</title>
+
+        <!-- Bootstrap 4.6.0 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+        <!-- Script Vue.Js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+        <!-- Style -->
+        <style>
+            body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://rickandmortypod.com/wp-content/uploads/2018/11/cropped-RM_page-header_background1-3.png');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+            .avatar {
+                border-radius: 50%;
+                width: 70px;
+                margin: 10px;
+            }
+            span {
+                color: green;
+                font-weight: bold;
+                font-size: 20px;
+                position: relative;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <body>
+
+
+        <div id="app">
+            <rick></rick> 
+        </div>
+
+        <!-- Script -->
+        <script>
+            const morty = {
+                data (){
+                    return {
+                        count: 0
+                    }
+                },
+                props:{
+                    datos: {
+                        type: Array,
+                        required: true
+                    }
+                },
+                template : `
+                <div class="mx-2">
+                        <div v-for="(item, index) in datos" :key="index">
+                            <img class="avatar" :src="item.img" alt="item.nombre">
+                            <span v-text="item.nombre"></span>
+                        </div>
+                </div>
+                `,
+            }
+            Vue.component('rick', {
+                data() {
+                    return {
+                        datos : [
+                            {nombre: 'Rick Sanchez', img: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg'},
+                            {nombre: 'Morty Smith', img: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg'},
+                            {nombre: 'Summer Smith', img: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg'},
+                            {nombre: 'Beth Smith', img: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg'},
+                            {nombre: 'Jerry Smith', img: 'https://rickandmortyapi.com/api/character/avatar/5.jpeg'},
+                        ],
+                    }
+                },
+                components:{
+                    'morty' : morty, 
+                },           
+                template : `<div class="my-4">
+                                <morty :datos="datos"/>
+                            </div>`
+            })
+            const app = new Vue({
+                el: '#app',            
+            })
+        </script>
+
+
+
+
+
+
+        <noscript>
+            <strong>Lo sentimos, pero Componentes no funciona correctamente sin JavaScript activado. Por favor, habilítelo para continuar.</strong>
+        </noscript>
+    </body>
+</html>
